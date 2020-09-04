@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  demo-crawler-api:
+    image: ${DOCKER_REGISTRY-}democrawlerapi
+    build:
+      context: .
+      dockerfile: demo-crawler-api/Dockerfile
