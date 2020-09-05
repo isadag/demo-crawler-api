@@ -33,6 +33,13 @@ namespace demo_crawler_api
                 options.JsonSerializerOptions.WriteIndented = true;
             });
             services.AddHttpClient<ICrawlerService, CrawlerService>();
+
+            // Allow calls from anywhere
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +55,9 @@ namespace demo_crawler_api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Allow calls from anywhere
+            app.UseCors(options => options.AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
