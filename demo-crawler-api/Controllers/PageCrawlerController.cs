@@ -22,9 +22,10 @@ namespace demo_crawler_api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string url)
         {            
-            var crawlerStatus = await _crawlerService.GetScreenshot(url);
+            var screenshot = await _crawlerService.GetScreenshot(url);
+            return Ok(screenshot);
 
-            return File(crawlerStatus, "image/png");
+            //return File(crawlerStatus, "image/png");
         }
     }
 }
