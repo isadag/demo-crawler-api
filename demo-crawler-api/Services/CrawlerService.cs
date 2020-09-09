@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using demo_crawler_api.Models;
 using System.Text.Json;
+using static demo_crawler_api.Models.PageResult;
 
 namespace demo_crawler_api.Services
 {
@@ -45,10 +46,11 @@ namespace demo_crawler_api.Services
             }
         }
 
-        public async Task<byte[]> GetScreenshot(string url)
+        public async Task<CrawlerPageResultDto> GetPageResults(string url, bool fetchPageResults = false)
         {
             try
             {
+                Root pageResult = null;
                 var httpResponse = await _httpClient.GetAsync($"{BaseUrl}/screenshot?url={url}");
 
                 if (!httpResponse.IsSuccessStatusCode)
@@ -64,9 +66,18 @@ namespace demo_crawler_api.Services
 
                 var content = await httpResponse.Content.ReadAsByteArrayAsync();
                 //var status = JsonSerializer.Deserialize<CrawlerScreenshotResultDto>(content, options);
+                if (fetchPageResults)
+                {
+                    var pageResultResponse = await _httpClient.GetAsync($"{BaseUrl}/pageresult?url={url}");
+                    var pageResultContent = await pageResultResponse.Content.ReadAsStreamAsync();
+                    pageResult = await JsonSerializer.DeserializeAsync<Root>(pageResultContent, options);
+                }
 
-
-                return content;
+                return new CrawlerPageResultDto()
+                {
+                    PageResult = pageResult,
+                    FullPageScreenshot = content
+                };
             }
             catch (Exception ex)
             {

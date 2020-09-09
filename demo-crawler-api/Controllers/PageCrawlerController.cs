@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using demo_crawler_api.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace demo_crawler_api.Controllers
@@ -20,12 +16,10 @@ namespace demo_crawler_api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string url)
+        public async Task<IActionResult> Get(string url, bool fetchPageResults = false)
         {            
-            var screenshot = await _crawlerService.GetScreenshot(url);
-            return Ok(screenshot);
-
-            //return File(crawlerStatus, "image/png");
+            var pageResult = await _crawlerService.GetPageResults(url, fetchPageResults);
+            return Ok(pageResult);
         }
     }
 }
