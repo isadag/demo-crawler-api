@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using demo_crawler_api.Models;
 using demo_crawler_api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,13 @@ namespace demo_crawler_api.Controllers
         public async Task<IActionResult> Get(string url, bool fetchPageResults = false)
         {            
             var pageResult = await _crawlerService.GetPageResults(url, fetchPageResults);
-            return Ok(pageResult);
+
+            var apiResponse = new APIResponseBaseModel
+            {
+                Result = pageResult,
+                Success = true
+            };
+            return Ok(apiResponse);
         }
     }
 }
