@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using demo_crawler_api.Models;
-using System.Text.Json;
-using static demo_crawler_api.Models.PageResult;
+using Newtonsoft.Json;
 
 namespace demo_crawler_api.Services
 {
@@ -27,13 +26,9 @@ namespace demo_crawler_api.Services
                 {
                     throw new Exception("Cannot get status");
                 }
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
+
                 var content = await httpResponse.Content.ReadAsStringAsync();
-                var status = JsonSerializer.Deserialize<CrawlerStatusDto>(content, options);
+                var status = JsonConvert.DeserializeObject<CrawlerStatusDto>(content);
 
                 
                 return status;
@@ -58,19 +53,14 @@ namespace demo_crawler_api.Services
                     throw new Exception("Cannot get screenshot");
                 }
 
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
-
                 var content = await httpResponse.Content.ReadAsByteArrayAsync();
-                //var status = JsonSerializer.Deserialize<CrawlerScreenshotResultDto>(content, options);
                 if (fetchPageResults)
                 {
                     var pageResultResponse = await _httpClient.GetAsync($"{BaseUrl}/pageresult?url={url}");
                     var pageResultContent = await pageResultResponse.Content.ReadAsStreamAsync();
-                    pageResult = await JsonSerializer.DeserializeAsync<Root>(pageResultContent, options);
+                    var pageResultContent2 = await pageResultResponse.Content.ReadAsStringAsync();
+
+                    pageResult = JsonConvert.DeserializeObject<Root>(pageResultContent2);
                 }
 
                 return new CrawlerPageResultDto()
