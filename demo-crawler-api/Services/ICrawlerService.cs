@@ -6,6 +6,6 @@ namespace demo_crawler_api.Services
     public interface ICrawlerService
     {
         Task<CrawlerStatusDto> GetStatus();
-        Task<CrawlerPageResultDto> GetPageResults(string url, bool fetchPageResults);
+        Task<CrawlerPageResultDto> GetPageResults(string url);
     }
 }

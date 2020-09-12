@@ -41,31 +41,21 @@ namespace demo_crawler_api.Services
             }
         }
 
-        public async Task<CrawlerPageResultDto> GetPageResults(string url, bool fetchPageResults = false)
+        public async Task<CrawlerPageResultDto> GetPageResults(string url)
         {
             try
             {
-                Root pageResult = null;
                 var httpResponse = await _httpClient.GetAsync($"{BaseUrl}/screenshot?url={url}");
 
                 if (!httpResponse.IsSuccessStatusCode)
                 {
-                    throw new Exception("Cannot get screenshot");
+                    return null;
                 }
 
-                var content = await httpResponse.Content.ReadAsByteArrayAsync();
-                if (fetchPageResults)
-                {
-                    var pageResultResponse = await _httpClient.GetAsync($"{BaseUrl}/pageresult?url={url}");
-                    var pageResultContent = await pageResultResponse.Content.ReadAsStreamAsync();
-                    var pageResultContent2 = await pageResultResponse.Content.ReadAsStringAsync();
-
-                    pageResult = JsonConvert.DeserializeObject<Root>(pageResultContent2);
-                }
+                var content = await httpResponse.Content.ReadAsByteArrayAsync();                
 
                 return new CrawlerPageResultDto()
                 {
-                    PageResult = pageResult,
                     FullPageScreenshot = content
                 };
             }

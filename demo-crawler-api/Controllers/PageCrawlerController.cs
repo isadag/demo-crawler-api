@@ -19,8 +19,13 @@ namespace demo_crawler_api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string url, bool fetchPageResults = false)
         {            
-            var pageResult = await _crawlerService.GetPageResults(url, fetchPageResults);
+            var pageResult = await _crawlerService.GetPageResults(url);
 
+            //TODO: add proper error handling
+            if (pageResult == null)
+            {
+                return Ok(new APIResponseBaseModel());
+            }
             var apiResponse = new APIResponseBaseModel
             {
                 Result = pageResult,
