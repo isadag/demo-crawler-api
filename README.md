@@ -21,3 +21,9 @@ Rest API to initiate web page crawl and fetch related data
 
 ### Visit heroku app
 [https://demo-crawler-api.herokuapp.com/](https://demo-crawler-api.herokuapp.com/)
+
+
+## Architecture
+This react app makes up the API for the "demo crawler" app which is structured as:
+
+![Architecture](./arch_api.png)
