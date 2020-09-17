@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using demo_crawler_api.Models;
 using demo_crawler_api.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace demo_crawler_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/page-crawler")]
     [ApiController]
     public class PageCrawlerController : ControllerBase
     {
@@ -17,21 +18,17 @@ namespace demo_crawler_api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string url, bool fetchPageResults = false)
+        public async Task<IActionResult> Get(string url)
         {            
             var pageResult = await _crawlerService.GetPageResults(url);
 
             //TODO: add proper error handling
             if (pageResult == null)
             {
-                return Ok(new APIResponseBaseModel());
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ruh roh, something bad happened");
             }
-            var apiResponse = new APIResponseBaseModel
-            {
-                Result = pageResult,
-                Success = true
-            };
-            return Ok(apiResponse);
+            
+            return Ok(pageResult);
         }
     }
 }

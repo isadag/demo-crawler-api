@@ -9,7 +9,7 @@ namespace demo_crawler_api.Services
     public class CrawlerService : ICrawlerService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://demo-crawler.herokuapp.com";
+        private const string BaseUrl = "https://demo-crawler.herokuapp.com";
 
         public CrawlerService(HttpClient httpClient)
         {
