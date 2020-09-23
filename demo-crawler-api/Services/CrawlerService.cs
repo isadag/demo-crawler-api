@@ -26,7 +26,6 @@ namespace demo_crawler_api.Services
                 {
                     throw new Exception("Cannot get status");
                 }
-
                 var content = await httpResponse.Content.ReadAsStringAsync();
                 var status = JsonConvert.DeserializeObject<CrawlerStatusDto>(content);
 
@@ -52,7 +51,12 @@ namespace demo_crawler_api.Services
                     return null;
                 }
 
-                var content = await httpResponse.Content.ReadAsByteArrayAsync();                
+                var content = await httpResponse.Content.ReadAsByteArrayAsync();
+
+                // In the case where the crawler request succeeded, but no screenshot was returned
+                if (content.Length < 1){
+                    return null;
+                }
 
                 return new CrawlerPageResultDto()
                 {
