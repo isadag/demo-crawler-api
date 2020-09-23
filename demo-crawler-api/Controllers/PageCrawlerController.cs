@@ -22,7 +22,7 @@ namespace demo_crawler_api.Controllers
         {            
             var pageResult = await _crawlerService.GetPageResults(url);
 
-            //TODO: add proper error handling
+            //TODO: add proper error handling. Would make sense to return bad request for bad URLs, internal server errors for others.
             if (pageResult == null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ruh roh, something bad happened");
