@@ -7,6 +7,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo-crawler-integration-test", "demo-crawler-integration-test\demo-crawler-integration-test.csproj", "{FF614EEA-0067-43FF-A15F-6DCF16EFF71F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo-crawler-api-unit-test", "demo-crawler-api-unit-test\demo-crawler-api-unit-test.csproj", "{6A0B4C28-4823-4D95-B86F-9A2CD2574F61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +27,9 @@ Global
 		{FF614EEA-0067-43FF-A15F-6DCF16EFF71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF614EEA-0067-43FF-A15F-6DCF16EFF71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF614EEA-0067-43FF-A15F-6DCF16EFF71F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A0B4C28-4823-4D95-B86F-9A2CD2574F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A0B4C28-4823-4D95-B86F-9A2CD2574F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A0B4C28-4823-4D95-B86F-9A2CD2574F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A0B4C28-4823-4D95-B86F-9A2CD2574F61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
